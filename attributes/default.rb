@@ -11,7 +11,7 @@ default['vault']['service_group'] = 'vault'
 default['vault']['bag_name'] = 'secrets'
 default['vault']['bag_item'] = 'vault'
 
-default['vault']['version'] = '0.1.2'
+default['vault']['version'] = '0.2.0'
 
 default['vault']['config']['path'] = '/home/vault/.vault.json'
 default['vault']['config']['listen_address'] = '127.0.0.1:8200'
