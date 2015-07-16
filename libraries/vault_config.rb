@@ -53,7 +53,6 @@ class Chef::Resource::VaultConfig < Chef::Resource
   action(:create) do
     notifying_block do
       if new_resource.tls?
-        include_recipe 'chef-vault::default'
 
         directory ::File.dirname(new_resource.tls_cert_file) do
           recursive true
@@ -62,7 +61,7 @@ class Chef::Resource::VaultConfig < Chef::Resource
           mode '0644'
         end
 
-        item = chef_vault_item(node['vault']['bag_name'], node['vault']['bag_item'])
+        item = Chef::EncryptedDataBagItem.load(node['vault']['bag_name'], node['vault']['bag_item'], Chef::EncryptedDataBagItem.load_secret("/etc/chef/encrypted_data_bag_secret"))
         file new_resource.tls_cert_file do
           content item['certificate']
           mode '0644'
